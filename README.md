@@ -1,5 +1,7 @@
 # Prism Web
 
+[![Rails](https://github.com/Prism-Hosting/web/actions/workflows/rails.yml/badge.svg)](https://github.com/Prism-Hosting/web/actions/workflows/rails.yml)
+
 This is the web-application part of prism hosting.
 
 It includes:
