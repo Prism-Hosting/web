@@ -1,16 +1,328 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PrismWeb</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Libellum" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "purpose", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://kit.fontawesome.com/99fd0eedf9.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="g-sidenav-hidden">
+    <header class="header header-transparent" id="header-main">
+      <!-- Topbar -->
+      <div id="navbar-top-main" class="navbar-top  navbar-dark bg-dark border-bottom">
+        <div class="container px-0">
+          <div class="navbar-nav align-items-center">
+            <div class="d-none d-lg-inline-block">
+              <span class="navbar-text mr-3">Prism — Swiss Gameservers</span>
+            </div>
+            <div class="ml-auto">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="../../pages/utility/support.html">Support</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link pr-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                    <h6 class="dropdown-header">User menu</h6>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-user"></i>Account
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <span class="float-right badge badge-primary">4</span>
+                      <i class="fas fa-envelope"></i>Messages
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-cog"></i>Settings
+                    </a>
+                    <div class="dropdown-divider" role="presentation"></div>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-sign-out-alt"></i>Sign out
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Main navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-dark" id="navbar-main">
+        <div class="container px-lg-0">
+          <!-- Logo -->
+          <a class="navbar-brand mr-lg-5" href="../../index.html">
+            <%= image_tag 'logo.png', id: "navbar-logo", style: "height: 50px;" %>
+          </a>
+          <!-- Navbar collapse trigger -->
+          <button class="navbar-toggler pr-0" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Navbar nav -->
+          <div class="collapse navbar-collapse" id="navbar-main-collapse">
+            <ul class="navbar-nav align-items-lg-center">
+              <!-- Home - Overview  -->
+              <li class="nav-item ">
+                <a class="nav-link" href="../../index.html">Overview</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="main-content">
+      <!-- Header (account) -->
+      <section class="header-account-page bg-primary d-flex align-items-end" data-offset-top="#header-main" style="padding-top: 147.984px;">
+        <!-- Header container -->
+        <div class="container pt-4 pt-lg-0">
+          <div class="row justify-content-end">
+            <div class="col-12">
+              <!-- Salute + Small stats -->
+              <div class="row align-items-center mb-4">
+                <div class="col-lg-8 col-xl-5 mb-4 mb-md-0">
+                  <span class="h2 mb-0 text-white d-block">Hi user123</span>
+                  <span class="text-white">🚀 Ready for an epic CS:GO adventure?</span>
+                </div>
+              </div>
+              <!-- Account navigation -->
+              <div class="d-flex">
+                <a href="account-profile-public.html" class="btn btn-icon btn-group-nav shadow btn-neutral">
+                  <span class="btn-inner--icon"><%= fa_icon 'plus' %></span>
+                  <span class="btn-inner--text d-none d-md-inline-block">Create Server</span>
+                </a>
+                <div class="btn-group btn-group-nav shadow ml-auto" role="group" aria-label="Basic example">
+                  <div class="btn-group" role="group">
+                    <button id="btn-group-settings" type="button" class="btn btn-neutral btn-icon" data-toggle="dropdown" data-offset="0,8" aria-haspopup="true" aria-expanded="false">
+                      <span class="btn-inner--icon"><i class="fas fa-sliders-h"></i></span>
+                      <span class="btn-inner--text d-none d-sm-inline-block">Account</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="btn-group-settings">
+                      <span class="dropdown-header">Profile</span>
+                      <a class="dropdown-item" href="account-profile-public.html">Public profile</a>
+                      <span class="dropdown-header">Account</span>
+                      <a class="dropdown-item" href="account-profile.html">Profile</a>
+                      <a class="dropdown-item" href="account-settings.html">Settings</a>
+                      <a class="dropdown-item" href="account-billing.html">Billing</a>
+                      <a class="dropdown-item" href="account-notifications.html">Notifications</a>
+                    </div>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id="btn-group-boards" type="button" class="btn btn-neutral btn-icon" data-toggle="dropdown" data-offset="0,8" aria-haspopup="true" aria-expanded="false">
+                      <span class="btn-inner--icon"><i class="fas fa-chart-line"></i></span>
+                      <span class="btn-inner--text d-none d-sm-inline-block">Board</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="btn-group-boards">
+                      <a class="dropdown-item" href="board-overview.html">Overview</a>
+                      <a class="dropdown-item" href="board-projects.html">Projects</a>
+                      <a class="dropdown-item" href="board-tasks.html">Tasks</a>
+                      <a class="dropdown-item" href="board-connections.html">Connections</a>
+                    </div>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id="btn-group-listing" type="button" class="btn btn-neutral btn-icon rounded-right" data-toggle="dropdown" data-offset="0,8" aria-haspopup="true" aria-expanded="false">
+                      <span class="btn-inner--icon"><i class="fas fa-list-ul"></i></span>
+                      <span class="btn-inner--text d-none d-sm-inline-block">Listing</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="btn-group-settings">
+                      <span class="dropdown-header">Tables</span>
+                      <a class="dropdown-item" href="listing-orders.html">Orders</a>
+                      <a class="dropdown-item" href="listing-projects.html">Projects</a>
+                      <span class="dropdown-header">Flex</span>
+                      <a class="dropdown-item" href="listing-users.html">Users</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="slice bg-section-secondary">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card hover-shadow-lg">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-0">
+                        <%= image_tag 'csgo.svg' %>
+                        Counter-Strike: Global-Offensive
+                      </h6>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions">
+                        <a href="#" class="action-item"><i class="fas fa-sync"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body text-center">
+                  <a href="#" class="avatar rounded-circle avatar-lg hover-translate-y-n3">
+                    <img alt="Image placeholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Flolesports_gamepedia_en%2F1%2F12%2FSESL_Logo.png&f=1&nofb=1&ipt=97bd2752335d3bd87398787cd64a1dca0a3b2911dfc4dcdf30bbf891783a66ea&ipo=images" class="">
+                  </a>
+                  <h5 class="my-4"><a href="#">SEL CS:GO Tournament #10</a></h5>
+                  <div class="input-group mb-3" data-controller="clipboard">
+                    <input data-clipboard-target="command" type="text" class="form-control" value="connect prism-hosting.ch:28938; password pass">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" data-action="click->clipboard#copy" title="Copy command to clipboard">
+                        <%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %>
+                      </button>
+                    </div>
+                  </div>
+                  <span class="clearfix"></span>
+                  <span class="badge badge-pill badge-soft-success">Online: 6 players connected</span>
+                  <div class="mt-4 pt-4 delimiter-top">
+                    <a href="#" class="btn btn-sm btn-light">
+                      <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
+                      Edit
+                    </a>
+                    <a href="#" class="btn btn-sm btn-warning">
+                      <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
+                      Stop
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card hover-shadow-lg">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-0">
+                        <%= image_tag 'csgo.svg' %>
+                        Counter-Strike: Global-Offensive
+                      </h6>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions">
+                        <a href="#" class="action-item"><i class="fas fa-sync"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body text-center">
+                  <a href="#" class="avatar rounded-circle avatar-lg hover-translate-y-n3">
+                    <img alt="Image placeholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Flolesports_gamepedia_en%2F1%2F12%2FSESL_Logo.png&f=1&nofb=1&ipt=97bd2752335d3bd87398787cd64a1dca0a3b2911dfc4dcdf30bbf891783a66ea&ipo=images" class="">
+                  </a>
+                  <h5 class="my-4"><a href="#">SEL CS:GO Tournament #19</a></h5>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" value="connect prism-hosting.ch:28938; password pass" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button"><%= fa_icon 'copy' %></button>
+                    </div>
+                  </div>
+                  <span class="clearfix"></span>
+                  <span class="badge badge-pill badge-soft-warning">Offline</span>
+                  <div class="mt-4 pt-4 delimiter-top">
+                    <a href="#" class="btn btn-sm btn-light">
+                      <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
+                      Edit
+                    </a>
+                    <a href="#" class="btn btn-sm btn-success">
+                      <span class="btn-inner--icon"><%= fa_icon 'play' %></span>
+                      Start
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card hover-shadow-lg">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-0">
+                        <%= image_tag 'csgo.svg' %>
+                        Counter-Strike: Global-Offensive
+                      </h6>
+                    </div>
+                    <div class="text-right">
+                      <div class="actions">
+                        <a href="#" class="action-item"><i class="fas fa-sync"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body text-center">
+                  <a href="#" class="avatar rounded-circle avatar-lg hover-translate-y-n3">
+                    <img alt="Image placeholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgamepedia.cursecdn.com%2Flolesports_gamepedia_en%2F1%2F12%2FSESL_Logo.png&f=1&nofb=1&ipt=97bd2752335d3bd87398787cd64a1dca0a3b2911dfc4dcdf30bbf891783a66ea&ipo=images" class="">
+                  </a>
+                  <h5 class="my-4"><a href="#">SEL CS:GO Tournament #15</a></h5>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" value="connect prism-hosting.ch:28938; password pass" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button"><%= fa_icon 'copy' %></button>
+                    </div>
+                  </div>
+                  <span class="clearfix"></span>
+                  <span class="badge badge-pill badge-soft-success">Online</span>
+                  <div class="mt-4 pt-4 delimiter-top">
+                    <a href="#" class="btn btn-sm btn-light btn-icon-only">
+                      <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
+                    </a>
+                    <a href="#" class="btn btn-sm btn-danger btn-icon-only">
+                      <span class="btn-inner--icon"><%= fa_icon 'trash-alt' %></i></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Load more -->
+          <div class="mt-4 text-center">
+            <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">Load more ...</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="footer p-0 footer-light bg-section-secondary" id="footer-main">
+      <div class="container">
+        <div class="py-4">
+          <div class="row align-items-md-center">
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="d-flex align-items-center">
+                <p class="text-sm mb-0">© Prism-Hosting 2023</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-4 mb-sm-0">
+              <ul class="nav justify-content-center">
+                <li class="nav-item">
+                  <a class="nav-link" href="../../pages/utility/support.html">Support</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../../pages/utility/terms.html">Terms</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../../pages/utility/privacy.html">Privacy</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/Prism-Hosting" target="_blank">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://hub.docker.com/prismhosting" target="_blank">
+                    <i class="fab fa-docker"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
