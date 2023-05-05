@@ -1,0 +1,9 @@
+kind: RedisEnterpriseDatabase
+apiVersion: app.redislabs.com/v1alpha1
+metadata:
+  name: redb
+  namespace: prism-servers
+spec:
+  redisEnterpriseCluster:
+    name: rec
+

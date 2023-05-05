@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prism-web
+  namespace: prism-servers
+  labels:
+    app: prism-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prism-web
+  template:
+    metadata:
+      labels:
+        app: prism-web
+    spec:
+      containers:
+      - name: web
+        image: docker.io/prismhosting/web
+        command: ["bundle", "exec", "rails", "server", "--binding", "0.0.0.0"]
+        ports:
+          - containerPort: 3000
+        env:
+          - name: RAILS_MASTER_KEY
+            valueFrom: { secretKeyRef: { name: prism-web, key: master_key } }
+          - name: REDIS_HOST
+            value: "redb.prism-servers.svc.cluster.local"
+          - name: REDIS_PORT
+            valueFrom: { secretKeyRef: { name: redb-redb, key: port } }
+          - name: REDIS_PASSWORD
+            valueFrom: { secretKeyRef: { name: redb-redb, key: password } }
+          - name: DATABASE_URL
+            valueFrom: { secretKeyRef: { name: postgres-pguser-postgres, key: uri } }

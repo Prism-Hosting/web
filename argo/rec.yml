@@ -1,0 +1,25 @@
+apiVersion: app.redislabs.com/v1
+kind: RedisEnterpriseCluster
+metadata:
+  name: rec
+  namespace: prism-servers
+spec:
+  nodes: 1
+  persistentSpec:
+    enabled: true
+  uiServiceType: ClusterIP
+  username: admin@redis.androme.da
+  bootstrapperImageSpec:
+    repository: registry.connect.redhat.com/redislabs/redis-enterprise-operator
+  redisEnterpriseServicesRiggerImageSpec:
+    repository: registry.connect.redhat.com/redislabs/services-manager
+  redisEnterpriseImageSpec:
+    imagePullPolicy: IfNotPresent
+    repository: registry.connect.redhat.com/redislabs/redis-enterprise
+  redisEnterpriseNodeResources:
+    requests:
+        memory: "4G"
+        cpu: "1"
+    limits:
+        memory: "4G"
+        cpu: "1"

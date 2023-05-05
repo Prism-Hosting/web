@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prism-web
+  namespace: prism-servers
+spec:
+  host: prism-web.apps.openshift.androme.da
+  to:
+    kind: Service
+    name: prism-web
+    weight: 100
+  port:
+    targetPort: 3000
+  wildcardPolicy: None
+
