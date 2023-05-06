@@ -36,6 +36,11 @@ gem "redis", "~> 4.0"
 # Use sidekiq for background job processing
 gem "sidekiq", "~> 6"
 
+# Use Devise for authentication
+gem "devise"
+gem "omniauth-steam"
+gem "omniauth-rails_csrf_protection"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
