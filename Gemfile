@@ -41,6 +41,9 @@ gem "devise"
 gem "omniauth-steam"
 gem "omniauth-rails_csrf_protection"
 
+# Use bootstrap_form for generating forms with bootstrap classes
+gem "bootstrap_form"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
