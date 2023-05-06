@@ -1,7 +1,6 @@
 FROM ruby:alpine AS rb
-RUN apk update && apk add --no-cache postgresql-dev build-base libffi-dev nodejs tzdata yarn sassc
-COPY Gemfile* package.json yarn.lock ./
-RUN yarn install
+RUN apk update && apk add --no-cache postgresql-dev build-base libffi-dev nodejs tzdata sassc
+COPY Gemfile* ./
 RUN gem update --system && gem install bundler
 RUN bundle config frozen true \
     && bundle config jobs 4 \
