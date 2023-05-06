@@ -14,5 +14,9 @@ module PrismWeb
     config.time_zone = "Europe/Zurich"
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.to_prepare do
+      Devise::SessionsController.layout "anonymous"
+    end
   end
 end

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+jack:
+  username: JackSparrow420
+  email: JackSparrow420@omniauth.steam.com
+  encrypted_password: <%= User.new.send(:password_digest, 'black-pearl-123') %>
+  image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette4.wikia.nocookie.net%2Fpiratesofthecaribbeanuniverse%2Fimages%2Fd%2Fde%2FJackawepromo.jpg%2Frevision%2Flatest%2Fscale-to-width-down%2F2000%3Fcb%3D20130307105326&f=1&nofb=1&ipt=b49afe23afa9ebdcae599ca20d8dc6dfcc9bfa1dc281ac8e428f502293c6ce1c&ipo=images"
+  provider: "steam"
+  uid: "123456"
