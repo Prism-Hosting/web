@@ -35,6 +35,15 @@ spec:
         volumeMounts:
           - mountPath: "/prism/storage"
             name: "storage"
+      initContainers:
+      - name: migrations
+        image: docker.io/prismhosting/web
+        command: ["bundle", "exec", "rails", "db:migrate"]
+        env:
+          - name: RAILS_MASTER_KEY
+            valueFrom: { secretKeyRef: { name: prism-web, key: master_key } }
+          - name: DATABASE_URL
+            valueFrom: { secretKeyRef: { name: postgres-pguser-postgres, key: uri } }
       volumes:
       - name: "storage"
         persistentVolumeClaim:
