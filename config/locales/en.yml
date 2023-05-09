@@ -30,4 +30,20 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      server:
+        name: Server Name
+        password: Password
+        gslt: Steam Game Server Login Token
+        rcon_password: RCON password
+        game_types:
+          classic: Classic
+          gun_game: Gun Game
+          training: Training
+          custom: Custom
+          cooperative: Cooperative
+          skirmish: Skirmish
+          free_for_all: Free For All
+
+

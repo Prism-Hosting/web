@@ -1,0 +1,47 @@
+<div class="col-lg-6">
+  <div class="card hover-shadow-lg">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h6 class="mb-0">
+            <%= image_tag 'csgo.svg' %>
+            Counter-Strike: Global-Offensive
+          </h6>
+        </div>
+        <div class="text-right">
+          <div class="actions">
+            <a href="#" class="action-item"><i class="fas fa-sync"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body text-center">
+      <%= link_to server, class: "avatar rounded-circle avatar-lg hover-translate-y-n3" do  %>
+        <%= image_tag(server.picture.variant(:thumb), style: "height: 100%;") if server.picture.attached? %>
+      <% end %>
+      <h5 class="mt-2 mb-4">
+        <%= link_to server.name, server %>
+      </h5>
+      <div class="input-group mb-3" data-controller="clipboard">
+        <input data-clipboard-target="command" type="text" class="form-control" value="connect prism-hosting.ch:28938; password pass">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" data-action="click->clipboard#copy" title="Copy command to clipboard">
+            <%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %>
+          </button>
+        </div>
+      </div>
+      <span class="clearfix"></span>
+      <span class="badge badge-pill badge-soft-success">Online: 6 players connected</span>
+      <div class="mt-4 pt-4 delimiter-top">
+        <%= link_to edit_server_path(server), class: "btn btn-sm btn-light" do  %>
+          <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
+          Edit
+        <% end %>
+        <a href="#" class="btn btn-sm btn-warning">
+          <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
+          Stop
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

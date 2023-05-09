@@ -1,0 +1,22 @@
+<% content_for(:title) do %>
+  Servers
+<% end %>
+
+<% content_for(:subtitle) do %>
+  You own <%= current_user.servers.count %> as of now!
+<% end %>
+
+<% content_for(:right_actions) do %>
+  <div class="btn-group" role="group">
+    <%= link_to new_server_path, class: "btn btn-neutral btn-icon" do %>
+      <span class="btn-inner--icon"><%= fa_icon 'plus' %></span>
+      <span class="btn-inner--text d-none d-md-inline-block">New server</span>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="row">
+  <% @servers.each do |server| %>
+    <%= render server %>
+  <% end %>
+</div>

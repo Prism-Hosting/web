@@ -1,0 +1,49 @@
+<%= bootstrap_form_with(model: server) do |form| %>
+  <div class="row">
+    <div class="col-12">
+      <%= form.file_field :picture, accept: "image/*" %>
+    </div>
+    <div class="col-12 col-lg-6">
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.text_field :password %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.text_field :gslt, help: 'Required by Steam; Check <a href="https://t.ly/DJw-">this article</a> for more information.'.html_safe %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.text_field :rcon_password, help: "Use <code>rcon_password \"#{server.rcon_password}\"</code> in the in-game console.".html_safe %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.text_field :map %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.select :tickrate, enum_options_for_select(Server, :tickrates, server.tickrate) %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.select :game_type, enum_options_for_select(Server, :game_types, server.game_type) %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.select :game_mode, enum_options_for_select(Server, :game_modes, server.game_mode) %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.check_box :disable_bots %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <%= form.check_box :server_configs %>
+    </div>
+
+    <div class="col-12 mt-4">
+      <%= form.submit %>
+    </div>
+<% end %>
