@@ -1,5 +1,5 @@
 FROM ruby:alpine AS rb
-RUN apk update && apk add --no-cache postgresql-dev build-base libffi-dev nodejs tzdata sassc
+RUN apk update && apk add --no-cache postgresql-dev build-base libffi-dev nodejs tzdata sassc vips-dev
 COPY Gemfile* ./
 RUN gem update --system && gem install bundler
 RUN bundle config frozen true \
@@ -15,7 +15,7 @@ RUN bundle exec rails assets:clobber && bundle exec rails assets:precompile
 
 FROM ruby:alpine
 
-RUN apk update && apk add --no-cache postgresql-client tzdata
+RUN apk update && apk add --no-cache postgresql-client tzdata vips-dev
 
 WORKDIR /prism
 

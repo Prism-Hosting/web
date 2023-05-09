@@ -19,7 +19,7 @@ Designed using [bootstrap](https://getbootstrap.com/) and the [Purpose Website U
 - Bundler
 - Foreman (development only)
 - Redis
-- Node.js
+- libvips
 - PostgreSQL 15
 - OpenShift 4.12
 - Chrome

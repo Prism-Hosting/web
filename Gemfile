@@ -44,6 +44,9 @@ gem "rexml"
 # Use bootstrap_form for generating forms with bootstrap classes
 gem "bootstrap_form", "~> 4"
 
+# Use image_processing for img variants
+gem "image_processing"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
