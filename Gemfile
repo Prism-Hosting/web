@@ -42,7 +42,7 @@ gem "omniauth-rails_csrf_protection"
 gem "rexml"
 
 # Use bootstrap_form for generating forms with bootstrap classes
-gem "bootstrap_form"
+gem "bootstrap_form", "~> 4"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
