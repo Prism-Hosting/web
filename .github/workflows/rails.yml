@@ -97,3 +97,19 @@ jobs:
         with:
           push: true
           tags: prismhosting/web:latest
+
+  deploy-worker:
+    uses: Prism-Hosting/git-workflows/.github/workflows/oc-action.yml@main
+    secrets: inherit
+    needs: build
+    with:
+      namespace: ${{ vars.OPENSHIFT_PRISM_NAMESPACE }}
+      oc-command: rollout restart deployment/prism-worker
+
+  deploy-web:
+    uses: Prism-Hosting/git-workflows/.github/workflows/oc-action.yml@main
+    secrets: inherit
+    needs: build
+    with:
+      namespace: ${{ vars.OPENSHIFT_PRISM_NAMESPACE }}
+      oc-command: rollout restart deployment/prism-web
