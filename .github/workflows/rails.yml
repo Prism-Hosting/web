@@ -81,6 +81,7 @@ jobs:
         bundle exec rails test:system
 
   build:
+    if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -99,6 +100,7 @@ jobs:
           tags: prismhosting/web:latest
 
   deploy-worker:
+    if: github.ref == 'refs/heads/main'
     uses: Prism-Hosting/git-workflows/.github/workflows/oc-action.yml@main
     secrets: inherit
     needs: build
@@ -107,6 +109,7 @@ jobs:
       oc-command: rollout restart deployment/prism-worker
 
   deploy-web:
+    if: github.ref == 'refs/heads/main'
     uses: Prism-Hosting/git-workflows/.github/workflows/oc-action.yml@main
     secrets: inherit
     needs: build
