@@ -28,10 +28,6 @@
       <span class="btn-inner--icon"><%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %></span>
       <span class="btn-inner--text d-none d-md-inline-block">Connect command</span>
     </button>
-    <%= link_to edit_server_path(@server), class: "btn btn-neutral btn-icon" do %>
-      <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
-      <span class="btn-inner--text d-none d-md-inline-block">Edit</span>
-    <% end %>
     <%= link_to new_server_path, class: "btn btn-warning btn-icon" do %>
       <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
       <span class="btn-inner--text d-none d-md-inline-block">Stop</span>
@@ -79,4 +75,5 @@
   </div>
 <% end %>
 
-<h1>Information about the server...</h1>
+<%= render "form", server: @server %>
+
