@@ -47,6 +47,9 @@ gem "bootstrap_form", "~> 4"
 # Use image_processing for img variants
 gem "image_processing"
 
+# Use kubeclient to interact with the kubernetes API
+gem "kubeclient"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
