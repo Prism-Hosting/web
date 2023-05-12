@@ -1,0 +1,13 @@
+black_pearl:
+  user: jack
+  name: Black Pearl Gaming Inc.
+  gslt: 12345678
+  map: de_inferno
+  password: seltournament1234
+  rcon_password: seladmin42$2$
+  tickrate: 128
+  game_type: 0
+  game_mode: 1
+  disable_bots: true
+  server_configs: true
+  openshift_resource_uuid: 345678-345678-2345-12421412

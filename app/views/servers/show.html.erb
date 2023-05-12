@@ -1,0 +1,82 @@
+<% content_for(:sublayout, "sidenav") %>
+
+<% content_for(:title) do %>
+  <%= @server.name %>
+<% end %>
+
+<% content_for(:subtitle) do %>
+  --
+<% end %>
+
+<% content_for(:title_right) do %>
+  <div class="avatar rounded-circle avatar-lg" style="width: 120px; height: 120px;">
+    <%= image_tag(@server.picture.variant(:big), style: "height: 100%;") if @server.picture.attached? %>
+  </div>
+<% end %>
+
+<% content_for(:left_actions) do %>
+  <%= link_to servers_path, class: "btn btn-icon btn-group-nav shadow btn-neutral" do %>
+    <span class="btn-inner--icon"><%= fa_icon 'arrow-left' %></span>
+    <span class="btn-inner--text d-none d-md-inline-block">Back</span>
+  <% end %>
+<% end %>
+
+<% content_for(:right_actions) do %>
+  <div class="btn-group" role="group">
+    <button class="btn btn-neutral btn-icon" data-controller="clipboard" data-action="click->clipboard#copy">
+      <input data-clipboard-target="command" type="hidden" style="display: none;" value="connect prism-hosting.ch:28938; password pass">
+      <span class="btn-inner--icon"><%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %></span>
+      <span class="btn-inner--text d-none d-md-inline-block">Connect command</span>
+    </button>
+    <%= link_to edit_server_path(@server), class: "btn btn-neutral btn-icon" do %>
+      <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
+      <span class="btn-inner--text d-none d-md-inline-block">Edit</span>
+    <% end %>
+    <%= link_to new_server_path, class: "btn btn-warning btn-icon" do %>
+      <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
+      <span class="btn-inner--text d-none d-md-inline-block">Stop</span>
+    <% end %>
+  </div>
+<% end %>
+
+
+<% content_for(:sidenav) do %>
+  <div data-toggle="sticky" data-sticky-offset="30" data-negative-margin=".card-profile-cover" style="margin-top: 0px;">
+    <div class="card">
+      <div class="card-header py-3">
+        <span class="h6">Settings</span>
+      </div>
+      <div class="list-group list-group-sm list-group-flush">
+        <a href="account-settings.html" class="list-group-item list-group-item-action d-flex justify-content-between">
+          <div>
+            <i class="fas fa-cog mr-2"></i>
+            <span>Settings</span>
+          </div>
+          <div>
+            <i class="fas fa-angle-right"></i>
+          </div>
+        </a>
+        <a href="account-billing.html" class="list-group-item list-group-item-action d-flex justify-content-between">
+          <div>
+            <i class="fas fa-credit-card mr-2"></i>
+            <span>Billing</span>
+          </div>
+          <div>
+            <i class="fas fa-angle-right"></i>
+          </div>
+        </a>
+        <a href="account-notifications.html" class="list-group-item list-group-item-action d-flex justify-content-between">
+          <div>
+            <i class="fas fa-bell mr-2"></i>
+            <span>Notifications</span>
+          </div>
+          <div>
+            <i class="fas fa-angle-right"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<h1>Information about the server...</h1>

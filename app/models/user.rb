@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :servers
   devise :omniauthable, :trackable, :database_authenticatable, :rememberable
 
   def self.create_from_provider_data(auth)
