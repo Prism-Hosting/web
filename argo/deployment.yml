@@ -15,6 +15,7 @@ spec:
       labels:
         app: prism-web
     spec:
+      serviceAccountName: sa-prism-web
       containers:
       - name: web
         image: docker.io/prismhosting/web

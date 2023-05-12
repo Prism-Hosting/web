@@ -15,8 +15,9 @@ spec:
       labels:
         app: prism-worker
     spec:
+      serviceAccountName: sa-prism-web
       containers:
-      - name: web
+      - name: worker
         image: docker.io/prismhosting/web
         command: ["bundle", "exec", "sidekiq"]
         env:
