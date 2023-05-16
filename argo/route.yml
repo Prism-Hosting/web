@@ -3,12 +3,16 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: prism-web
   namespace: prism-servers
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: prism-web-tls
 spec:
-  host: prism-web.apps.openshift.androme.da
+  host: prism.siegrist.io
   to:
     kind: Service
     name: prism-web
     weight: 100
+  tls:
+    termination: edge
   port:
     targetPort: 3000
   wildcardPolicy: None
