@@ -13,6 +13,7 @@ spec:
     weight: 100
   tls:
     termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   port:
     targetPort: 3000
   wildcardPolicy: None
