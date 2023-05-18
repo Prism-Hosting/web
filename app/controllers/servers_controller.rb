@@ -25,12 +25,15 @@ class ServersController < ApplicationController
     @server = current_user.servers.new(server_params)
 
     respond_to do |format|
-      if @server.save
-        format.html { redirect_to server_url(@server), notice: "Server was successfully created." }
-        format.json { render :show, status: :created, location: @server }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+      Server.transaction do
+        if @server.save
+          @server.create_kubernetes_resource
+          format.html { redirect_to server_url(@server), notice: "Server was successfully created." }
+          format.json { render :show, status: :created, location: @server }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @server.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

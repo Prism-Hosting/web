@@ -30,4 +30,9 @@ class ServerTest < ActiveSupport::TestCase
         servers(:black_pearl).to_kubernetes_resource.to_h)
     end
   end
+
+  test "create_kuberenetes_resource" do
+    servers(:black_pearl).create_kubernetes_resource
+    assert_equal "TEST-UUID", servers(:black_pearl).openshift_resource_uuid
+  end
 end

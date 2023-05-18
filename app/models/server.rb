@@ -11,6 +11,11 @@ class Server < ApplicationRecord
   enum :game_type, classic: 0, gun_game: 1, training: 2, custom: 3, cooperative: 4, skirmish: 5, free_for_all: 6
   enum :game_mode, casual: 0, competitive: 1, wingman: 2, weapons_expert: 3
 
+  def create_kubernetes_resource
+    result = Rails.application.config.kubeclient.create_prism_server(to_kubernetes_resource)
+    update!(openshift_resource_uuid: result.metadata[:uid])
+  end
+
   def kubernetes_name
     "prism-web-#{id}"
   end

@@ -10,7 +10,7 @@ if Rails.env.production? && ENV["SECRET_KEY_BASE"] != "buildingassets"
       ca_file: '/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
     }
   )
-else
+elsif Rails.env.development?
   Rails.application.config.kubenamespace = ENV.fetch("KUBECLIENT_NAMESPACE", "prism-servers")
   Rails.application.config.kubeclient = Kubeclient::Client.new(
     ENV.fetch("KUBECLIENT_URL", "https://api.openshift.androme.da:6443/apis/prism-hosting.ch"),
@@ -22,4 +22,8 @@ else
       verify_ssl: OpenSSL::SSL::VERIFY_NONE
     }
   )
+else
+  require_relative "../../test/support/kubeclient_mock"
+  Rails.application.config.kubenamespace = "test"
+  Rails.application.config.kubeclient = KubeclientMock.new
 end
