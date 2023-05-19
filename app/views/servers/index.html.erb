@@ -17,6 +17,7 @@
 
 <div class="row">
   <% @servers.each do |server| %>
+    <%= turbo_stream_from(server) %>
     <%= render server %>
   <% end %>
 </div>

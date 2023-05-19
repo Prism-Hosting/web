@@ -30,6 +30,17 @@ class ServersTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "ui refreshes when updating server" do
+    visit servers_url
+    assert_text "Black Pearl Gaming Inc."
+    assert_text "Online"
+
+    @server.update(name: "Updated Black Pearl", status: "Offline")
+
+    assert_text "Updated Black Pearl"
+    assert_text "Offline"
+  end
+
   # test "should update Server" do
   #   visit server_url(@server)
   #   click_on "Edit this server", match: :first
