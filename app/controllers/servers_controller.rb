@@ -61,6 +61,14 @@ class ServersController < ApplicationController
     end
   end
 
+  def start
+    head :ok
+  end
+
+  def stop
+    head :ok
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_server

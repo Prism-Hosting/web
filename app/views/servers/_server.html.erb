@@ -35,16 +35,13 @@
         </div>
       </div>
       <span class="clearfix"></span>
-      <span class="badge badge-pill badge-soft-success">Online: 6 players connected</span>
+      <%= badge_for_server_status(server) %>
       <div class="mt-4 pt-4 delimiter-top">
         <%= link_to edit_server_path(server), class: "btn btn-sm btn-light" do  %>
           <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
           Edit
         <% end %>
-        <a href="#" class="btn btn-sm btn-warning">
-          <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
-          Stop
-        </a>
+        <%= render "servers/start_stop_button", server: server %>
       </div>
     </div>
   </div>

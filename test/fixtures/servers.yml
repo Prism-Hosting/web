@@ -11,3 +11,5 @@ black_pearl:
   disable_bots: true
   server_configs: true
   openshift_resource_uuid: 345678-345678-2345-12421412
+  status: Online
+  port: 12345

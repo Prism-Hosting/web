@@ -35,4 +35,11 @@ class ServerTest < ActiveSupport::TestCase
     servers(:black_pearl).create_kubernetes_resource
     assert_equal "TEST-UUID", servers(:black_pearl).openshift_resource_uuid
   end
+
+  test "started or stopped" do
+    assert Server.new(status: "Online").started?
+    assert Server.new(status: "Starting").started?
+    assert Server.new(status: "Offline").stopped?
+    assert_not Server.new(status: "Offline").started?
+  end
 end

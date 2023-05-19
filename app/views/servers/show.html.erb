@@ -5,7 +5,7 @@
 <% end %>
 
 <% content_for(:subtitle) do %>
-  --
+  <%= badge_for_server_status(@server) %>
 <% end %>
 
 <% content_for(:title_right) do %>
@@ -32,10 +32,7 @@
       <span class="btn-inner--icon"><%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %></span>
       <span class="btn-inner--text d-none d-md-inline-block">Connect command</span>
     </button>
-    <%= link_to new_server_path, class: "btn btn-warning btn-icon" do %>
-      <span class="btn-inner--icon"><%= fa_icon 'stop' %></span>
-      <span class="btn-inner--text d-none d-md-inline-block">Stop</span>
-    <% end %>
+    <%= render "servers/start_stop_button", server: @server, button_style: "btn-icon", additional_button_text_classes: "d-none d-md-inline-block" %>
   </div>
 <% end %>
 

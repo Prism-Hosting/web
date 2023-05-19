@@ -44,4 +44,12 @@ class Server < ApplicationRecord
       }
     )
   end
+
+  def started?
+    ["Starting", "Online"].include?(status)
+  end
+
+  def stopped?
+    ["Offline"].include?(status)
+  end
 end
