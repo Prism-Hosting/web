@@ -62,7 +62,7 @@ Rails.application.configure do
   # Allow using puma-dev for development
   config.hosts << "prism-web.test"
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.connect_command_host = 'prism-web.test'
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

@@ -25,6 +25,8 @@ spec:
         env:
           - name: RAILS_MASTER_KEY
             valueFrom: { secretKeyRef: { name: prism-web, key: master_key } }
+          - name: CONNECT_COMMAND_HOST
+            value: "prism.siegrist.io"
           - name: REDIS_HOST
             value: "redb.prism-servers.svc.cluster.local"
           - name: REDIS_PORT

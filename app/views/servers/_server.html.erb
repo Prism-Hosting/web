@@ -29,7 +29,7 @@
       <div class="input-group mb-3" data-controller="clipboard">
         <%= text_field_tag(
           "",
-          server.port && server.connect_command(request&.host),
+          server.port && server.connect_command,
           placeholder: "Waiting for port to be assigned..",
           class: "form-control",
           readonly: true,
