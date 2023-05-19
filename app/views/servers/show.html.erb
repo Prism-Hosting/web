@@ -10,7 +10,11 @@
 
 <% content_for(:title_right) do %>
   <div class="avatar rounded-circle avatar-lg" style="width: 120px; height: 120px;">
-    <%= image_tag(@server.picture.variant(:big), style: "height: 100%;") if @server.picture.attached? %>
+    <% if @server.picture.variable? %>
+      <%= image_tag(@server.picture.variant(:big), style: "height: 100%;") %>
+    <% elsif @server.picture.attached? %>
+      <%= image_tag(@server.picture, style: "height: 100%;") %>
+    <% end %>
   </div>
 <% end %>
 

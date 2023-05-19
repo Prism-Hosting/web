@@ -17,7 +17,11 @@
     </div>
     <div class="card-body text-center">
       <%= link_to server, class: "avatar rounded-circle avatar-lg hover-translate-y-n3" do  %>
-        <%= image_tag(server.picture.variant(:thumb), style: "height: 100%;") if server.picture.attached? %>
+        <% if server.picture.variable? %>
+          <%= image_tag(server.picture.variant(:thumb), style: "height: 100%;") %>
+        <% elsif server.picture.attached? %>
+          <%= image_tag(server.picture, style: "height: 100%;") %>
+        <% end %>
       <% end %>
       <h5 class="mt-2 mb-4">
         <%= link_to server.name, server %>
