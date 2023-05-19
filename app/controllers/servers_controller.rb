@@ -1,5 +1,5 @@
 class ServersController < ApplicationController
-  before_action :set_server, only: %i[ show edit update destroy ]
+  before_action :set_server, only: %i[ show edit update destroy logs ]
 
   # GET /servers or /servers.json
   def index
@@ -59,6 +59,9 @@ class ServersController < ApplicationController
       format.html { redirect_to servers_url, notice: "Server was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def logs
   end
 
   def start

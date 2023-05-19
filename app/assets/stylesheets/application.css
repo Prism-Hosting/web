@@ -1,3 +1,7 @@
 .btn-outline-secondary {
   color: #8492A6 !important;
 }
+
+.console-logs {
+  height: calc(100vh - 582px);
+}

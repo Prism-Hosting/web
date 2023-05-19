@@ -33,42 +33,7 @@
 <% end %>
 
 <% content_for(:sidenav) do %>
-  <div data-toggle="sticky" data-sticky-offset="30" data-negative-margin=".card-profile-cover" style="margin-top: 0px;">
-    <div class="card">
-      <div class="card-header py-3">
-        <span class="h6">Settings</span>
-      </div>
-      <div class="list-group list-group-sm list-group-flush">
-        <a href="account-settings.html" class="list-group-item list-group-item-action d-flex justify-content-between">
-          <div>
-            <i class="fas fa-cog mr-2"></i>
-            <span>Settings</span>
-          </div>
-          <div>
-            <i class="fas fa-angle-right"></i>
-          </div>
-        </a>
-        <a href="account-billing.html" class="list-group-item list-group-item-action d-flex justify-content-between">
-          <div>
-            <i class="fas fa-credit-card mr-2"></i>
-            <span>Billing</span>
-          </div>
-          <div>
-            <i class="fas fa-angle-right"></i>
-          </div>
-        </a>
-        <a href="account-notifications.html" class="list-group-item list-group-item-action d-flex justify-content-between">
-          <div>
-            <i class="fas fa-bell mr-2"></i>
-            <span>Notifications</span>
-          </div>
-          <div>
-            <i class="fas fa-angle-right"></i>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
+  <%= render "servers/detail_sidenav", server: @server, active: 'settings' %>
 <% end %>
 
 <%= render "form", server: @server %>
