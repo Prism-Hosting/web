@@ -18,9 +18,9 @@
     <div class="card-body text-center">
       <%= link_to server, class: "avatar rounded-circle avatar-lg hover-translate-y-n3" do  %>
         <% if server.picture.variable? %>
-          <%= image_tag(server.picture.variant(:thumb), style: "height: 100%;") %>
+          <%= image_tag(rails_blob_path(server.picture.variant(:thumb)), style: "height: 100%;") %>
         <% elsif server.picture.attached? %>
-          <%= image_tag(server.picture, style: "height: 100%;") %>
+          <%= image_tag(rails_blob_path(server.picture), style: "height: 100%;") %>
         <% end %>
       <% end %>
       <h5 class="mt-2 mb-4">
@@ -42,7 +42,7 @@
         </div>
       </div>
       <span class="clearfix"></span>
-      <%= badge_for_server_status(server) %>
+      <%= render "servers/status_badge", server: server %>
       <div class="mt-4 pt-4 delimiter-top">
         <%= link_to edit_server_path(server), class: "btn btn-sm btn-light" do  %>
           <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>

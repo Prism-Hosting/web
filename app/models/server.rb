@@ -12,6 +12,8 @@ class Server < ApplicationRecord
   enum :game_mode, casual: 0, competitive: 1, wingman: 2, weapons_expert: 3
 
   broadcasts
+  after_update_commit -> { broadcast_replace_later_to "server_right_actions_#{id}", partial: "servers/detail_right_actions", target: "right_actions_#{id}" }
+  after_update_commit -> { broadcast_replace_later_to "server_status_badge_#{id}", partial: "servers/status_badge", target: "status_badge_#{id}" }
 
   def create_kubernetes_resource
     result = Rails.application.config.kubeclient.create_prism_server(to_kubernetes_resource)
@@ -55,10 +57,8 @@ class Server < ApplicationRecord
     ["Offline"].include?(status)
   end
 
-  def connect_command(host)
-    host ||= Rails.application.config.action_mailer.default_url_options[:host]
-
-    cmd = "connect #{host}:#{port}"
+  def connect_command
+    cmd = "connect #{Rails.application.config.connect_command_host}:#{port}"
     if password.present?
       cmd << "; password #{password}"
     end

@@ -1,3 +1,6 @@
+<%= turbo_stream_from "server_status_badge_#{@server.id}" %>
+<%= turbo_stream_from "server_right_actions_#{@server.id}", style: "display: none" %>
+
 <% content_for(:sublayout, "sidenav") %>
 
 <% content_for(:title) do %>
@@ -5,7 +8,7 @@
 <% end %>
 
 <% content_for(:subtitle) do %>
-  <%= badge_for_server_status(@server) %>
+  <%= render "servers/status_badge", server: @server %>
 <% end %>
 
 <% content_for(:title_right) do %>
@@ -26,20 +29,8 @@
 <% end %>
 
 <% content_for(:right_actions) do %>
-  <div class="btn-group" role="group">
-    <button class="btn btn-neutral btn-icon" data-controller="clipboard" data-action="click->clipboard#copy">
-      <%= hidden_field_tag(
-        "",
-        @server.port && @server.connect_command(request&.host),
-        data: { clipboard_target: "command" }
-      ) %>
-      <span class="btn-inner--icon"><%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %></span>
-      <span class="btn-inner--text d-none d-md-inline-block">Connect command</span>
-    </button>
-    <%= render "servers/start_stop_button", server: @server, button_style: "btn-icon", additional_button_text_classes: "d-none d-md-inline-block" %>
-  </div>
+  <%= render "servers/detail_right_actions", server: @server %>
 <% end %>
-
 
 <% content_for(:sidenav) do %>
   <div data-toggle="sticky" data-sticky-offset="30" data-negative-margin=".card-profile-cover" style="margin-top: 0px;">
@@ -81,4 +72,3 @@
 <% end %>
 
 <%= render "form", server: @server %>
-

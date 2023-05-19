@@ -1,0 +1,14 @@
+<%
+badge_class_mapping = {
+  "Starting" => "badge-soft-info",
+  "Online" => "badge-soft-success",
+  "Offline" => "badge-soft-warning",
+}
+%>
+
+<%= content_tag(
+  :span,
+  server.status,
+  class: "badge badge-pill #{badge_class_mapping.fetch(server.status, 'badge-soft-dark')}", 
+  id: "status_badge_#{server.id}"
+) %>

@@ -41,6 +41,18 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Offline"
   end
 
+  test "detail page actions and badge refreshes" do
+    visit @server
+
+    assert_text "Online"
+    assert_text "Stop"
+
+    @server.update(status: "Offline")
+
+    assert_text "Offline"
+    assert_text "Start"
+  end
+
   # test "should update Server" do
   #   visit server_url(@server)
   #   click_on "Edit this server", match: :first
