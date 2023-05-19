@@ -42,4 +42,9 @@ class ServerTest < ActiveSupport::TestCase
     assert Server.new(status: "Offline").stopped?
     assert_not Server.new(status: "Offline").started?
   end
+
+  test "connect command" do
+    assert_equal "connect prism.example.org:54321", Server.new(port: 54321).connect_command("prism.example.org")
+    assert_equal "connect prism.example.org:22222; password secret", Server.new(port: 22222, password: "secret").connect_command("prism.example.org")
+  end
 end

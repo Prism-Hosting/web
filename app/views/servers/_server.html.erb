@@ -27,7 +27,14 @@
         <%= link_to server.name, server %>
       </h5>
       <div class="input-group mb-3" data-controller="clipboard">
-        <input data-clipboard-target="command" type="text" class="form-control" value="connect prism-hosting.ch:28938; password pass">
+        <%= text_field_tag(
+          "",
+          server.port && server.connect_command(request&.host),
+          placeholder: "Waiting for port to be assigned..",
+          class: "form-control",
+          readonly: true,
+          data: { clipboard_target: "command" }
+        ) %>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" data-action="click->clipboard#copy" title="Copy command to clipboard">
             <%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %>

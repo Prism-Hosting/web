@@ -28,7 +28,11 @@
 <% content_for(:right_actions) do %>
   <div class="btn-group" role="group">
     <button class="btn btn-neutral btn-icon" data-controller="clipboard" data-action="click->clipboard#copy">
-      <input data-clipboard-target="command" type="hidden" style="display: none;" value="connect prism-hosting.ch:28938; password pass">
+      <%= hidden_field_tag(
+        "",
+        @server.port && @server.connect_command(request&.host),
+        data: { clipboard_target: "command" }
+      ) %>
       <span class="btn-inner--icon"><%= fa_icon 'copy', data: { 'clipboard-target': 'icon' } %></span>
       <span class="btn-inner--text d-none d-md-inline-block">Connect command</span>
     </button>

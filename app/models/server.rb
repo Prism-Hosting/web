@@ -52,4 +52,14 @@ class Server < ApplicationRecord
   def stopped?
     ["Offline"].include?(status)
   end
+
+  def connect_command(host)
+    host ||= Rails.application.config.action_mailer.default_url_options[:host]
+
+    cmd = "connect #{host}:#{port}"
+    if password.present?
+      cmd << "; password #{password}"
+    end
+    cmd
+  end
 end
