@@ -53,4 +53,11 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to servers_url
   end
+
+  test "users should only see their servers" do
+    sign_in users(:kirk)
+    assert_raises ActiveRecord::RecordNotFound do
+      get server_url(@server)
+    end
+  end
 end

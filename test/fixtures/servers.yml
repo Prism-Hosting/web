@@ -13,3 +13,17 @@ black_pearl:
   openshift_resource_uuid: 345678-345678-2345-12421412
   status: Online
   port: 12345
+
+starship_enterprise:
+  user: kirk
+  name: Starship Enterprise
+  gslt: 0987654321
+  map: de_inferno
+  rcon_password: starship_secured
+  tickrate: 100
+  game_type: 0
+  game_mode: 0
+  disable_bots: true
+  server_configs: true
+  openshift_resource_uuid: 876543-345678-2345-12421412
+  port: 23456
