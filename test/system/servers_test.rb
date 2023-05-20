@@ -74,10 +74,14 @@ class ServersTest < ApplicationSystemTestCase
   #   click_on "Back"
   # end
 
-  # test "should destroy Server" do
-  #   visit server_url(@server)
-  #   click_on "Destroy this server", match: :first
+  test "should destroy Server" do
+    visit advanced_server_url(@server)
+    assert find('[type="submit"]').disabled?
+    fill_in :name, with: @server.name
 
-  #   assert_text "Server was successfully destroyed"
-  # end
+    assert_difference "Server.count", -1 do
+      click_on "Delete"
+      assert_text "Server was successfully destroyed"
+    end
+  end
 end

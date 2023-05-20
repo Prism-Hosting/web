@@ -1,5 +1,5 @@
 class ServersController < ApplicationController
-  before_action :set_server, only: %i[ show edit update destroy logs ]
+  before_action :set_server, only: %i[ show update destroy logs advanced ]
 
   # GET /servers or /servers.json
   def index
@@ -58,6 +58,9 @@ class ServersController < ApplicationController
   end
 
   def logs
+  end
+
+  def advanced
   end
 
   def start

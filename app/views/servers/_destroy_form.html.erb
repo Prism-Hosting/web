@@ -1,0 +1,16 @@
+<div class="alert alert-danger" data-controller="delete">
+  <h4 class="alert-heading">Delete</h4>
+  <p>
+    Once you delete a server, there is no going back. Please be certain.<br />
+    To confirm, enter <code><b data-delete-target="serverName"><%= server.name %></b></code> in the textfield below.
+  </p>
+  <hr>
+  <%= bootstrap_form_tag url: server_path(server), local: true, method: :delete do |f| %>
+    <div class="row">
+      <div class="col-lg-4 col-12">
+        <%= f.text_field "name", hide_label: true, data: { delete_target: "input", action: "input->delete#inputUpdated" } %>
+      </div>
+    </div>
+    <%= f.submit "Delete", class: "btn btn-sm btn-secondary", disabled: true, data: { delete_target: "button" } %>
+  <% end %>
+</div>
