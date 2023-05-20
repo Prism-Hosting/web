@@ -38,6 +38,7 @@ class ServersController < ApplicationController
   def update
     respond_to do |format|
       if @server.update(server_params)
+        @server.update_kubernetes_resource
         format.html { redirect_to server_url(@server), notice: "Server was successfully updated." }
         format.json { render :show, status: :ok, location: @server }
       else

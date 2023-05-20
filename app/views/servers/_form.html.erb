@@ -45,7 +45,7 @@
     </div>
 
     <div class="col-12 mt-4">
-      <%= form.submit %>
+      <%= form.submit class: "btn btn-secondary", data: server.persisted? ? { turbo_confirm: "Updating your server configuration will restart the server. Are you sure you?" } : {} %>
     </div>
   </div>
 <% end %>

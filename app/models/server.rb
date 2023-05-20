@@ -20,6 +20,12 @@ class Server < ApplicationRecord
     update!(openshift_resource_uuid: result.metadata[:uid])
   end
 
+  def update_kubernetes_resource
+    current_version = Rails.application.config.kubeclient.get_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
+    current_version.spec.env = env_configuration
+    Rails.application.config.kubeclient.update_prism_server(current_version)
+  end
+
   def kubernetes_name
     "prism-web-#{id}"
   end
@@ -33,20 +39,24 @@ class Server < ApplicationRecord
       spec: {
         customer: "user-#{user.id}",
         subscriptionStart: Time.now.to_i,
-        env: [
-          { name: "CSGO_HOSTNAME", value: name },
-          { name: "CSGO_GSLT", value: gslt },
-          { name: "CSGO_MAP", value: map },
-          { name: "CSGO_PW", value: password },
-          { name: "CSGO_RCON_PW", value: rcon_password },
-          { name: "CSGO_TICKRATE", value: tickrate.to_s },
-          { name: "CSGO_GAME_TYPE", value: read_attribute_before_type_cast(:game_type).to_s },
-          { name: "CSGO_GAME_MODE", value: read_attribute_before_type_cast(:game_mode).to_s },
-          { name: "CSGO_DISABLE_BOTS", value: disable_bots.to_s },
-          { name: "SERVER_CONFIGS", value: server_configs.to_s },
-        ]
+        env: env_configuration
       }
     )
+  end
+
+  def env_configuration
+    [
+      { name: "CSGO_HOSTNAME", value: name },
+      { name: "CSGO_GSLT", value: gslt },
+      { name: "CSGO_MAP", value: map },
+      { name: "CSGO_PW", value: password },
+      { name: "CSGO_RCON_PW", value: rcon_password },
+      { name: "CSGO_TICKRATE", value: tickrate.to_s },
+      { name: "CSGO_GAME_TYPE", value: read_attribute_before_type_cast(:game_type).to_s },
+      { name: "CSGO_GAME_MODE", value: read_attribute_before_type_cast(:game_mode).to_s },
+      { name: "CSGO_DISABLE_BOTS", value: disable_bots.to_s },
+      { name: "SERVER_CONFIGS", value: server_configs.to_s },
+    ]
   end
 
   def started?
