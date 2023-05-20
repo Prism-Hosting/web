@@ -26,6 +26,10 @@ class Server < ApplicationRecord
     Rails.application.config.kubeclient.update_prism_server(current_version)
   end
 
+  def delete_kubernetes_resource
+    Rails.application.config.kubeclient.delete_prism_server(kuberenetes_name, Rails.application.config.kubenamespace)
+  end
+
   def kubernetes_name
     "prism-web-#{id}"
   end

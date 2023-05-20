@@ -6,6 +6,7 @@ class KubeclientMock
   def reset
     @create_prism_server_block = Proc.new { OpenStruct.new({ metadata: { uid: "TEST-UUID" } }) }
     @update_prism_server_block = Proc.new {  }
+    @delete_prism_server_block = Proc.new {  }
   end
 
   def on_create_prism_server(&block)
@@ -20,7 +21,15 @@ class KubeclientMock
     @update_prism_server_block = block
   end
 
-  def update_prism_server(resource)
-    @update_prism_server_block.call(resource)
+  def update_prism_server(name, namespace)
+    @update_prism_server_block.call(name, namespace)
+  end
+
+  def on_delete_prism_server(&block)
+    @delete_prism_server_block = block
+  end
+
+  def delete_prism_server(name, namespace)
+    @delete_prism_server_block.call(name, namespace)
   end
 end

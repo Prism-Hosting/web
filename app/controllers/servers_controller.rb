@@ -50,6 +50,7 @@ class ServersController < ApplicationController
 
   # DELETE /servers/1 or /servers/1.json
   def destroy
+    @server.delete_kubernetes_resource
     @server.destroy
 
     respond_to do |format|
