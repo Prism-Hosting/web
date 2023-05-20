@@ -44,7 +44,7 @@
       <span class="clearfix"></span>
       <%= render "servers/status_badge", server: server %>
       <div class="mt-4 pt-4 delimiter-top">
-        <%= link_to edit_server_path(server), class: "btn btn-sm btn-light" do  %>
+        <%= link_to server_path(server), class: "btn btn-sm btn-light" do  %>
           <span class="btn-inner--icon"><%= fa_icon 'edit' %></span>
           Edit
         <% end %>

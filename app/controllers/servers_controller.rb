@@ -16,10 +16,6 @@ class ServersController < ApplicationController
     @server.rcon_password = Devise.friendly_token[0, 10]
   end
 
-  # GET /servers/1/edit
-  def edit
-  end
-
   # POST /servers or /servers.json
   def create
     @server = current_user.servers.new(server_params)

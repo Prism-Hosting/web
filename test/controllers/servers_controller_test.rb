@@ -41,11 +41,6 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_server_url(@server)
-    assert_response :success
-  end
-
   test "should update server" do
     patch server_url(@server), params: { server: { disable_bots: @server.disable_bots, game_mode: @server.game_mode, game_type: @server.game_type, gslt: @server.gslt, map: @server.map, name: @server.name, openshift_resource_uuid: @server.openshift_resource_uuid, password: @server.password, rcon_password: @server.rcon_password, server_configs: @server.server_configs, tickrate: @server.tickrate } }
     assert_redirected_to server_url(@server)
