@@ -15,6 +15,8 @@ class Server < ApplicationRecord
   after_update_commit -> { broadcast_replace_later_to "server_right_actions_#{id}", partial: "servers/detail_right_actions", target: "right_actions_#{id}" }
   after_update_commit -> { broadcast_replace_later_to "server_status_badge_#{id}", partial: "servers/status_badge", target: "status_badge_#{id}" }
 
+  scope :ordered, -> { order(:created_at) }
+
   def create_kubernetes_resource
     result = Rails.application.config.kubeclient.create_prism_server(to_kubernetes_resource)
     update!(openshift_resource_uuid: result.metadata[:uid])

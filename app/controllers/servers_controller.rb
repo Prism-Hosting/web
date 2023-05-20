@@ -3,7 +3,7 @@ class ServersController < ApplicationController
 
   # GET /servers or /servers.json
   def index
-    @servers = current_user.servers.all
+    @servers = current_user.servers.ordered
   end
 
   # GET /servers/1 or /servers/1.json
