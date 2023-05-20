@@ -28,11 +28,11 @@
     </div>
 
     <div class="col-12 col-lg-6">
-      <%= form.select :game_type, enum_options_for_select(Server, :game_types, server.game_type) %>
+      <%= form.select :game_type, enum_options_for_select(Server, :game_types, server.game_type), help: 'See the <a href="https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive/Game_Modes" target="_blank">Valve Developer Community article</a> for more details.'.html_safe %>
     </div>
 
     <div class="col-12 col-lg-6">
-      <%= form.select :game_mode, enum_options_for_select(Server, :game_modes, server.game_mode) %>
+      <%= form.select :game_mode, enum_options_for_select(Server, :game_modes, server.game_mode), help: 'See the <a href="https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive/Game_Modes" target="_blank">Valve Developer Community article</a> for more details.'.html_safe %>
     </div>
 
     <div class="col-12 col-lg-6">
@@ -40,7 +40,8 @@
     </div>
 
     <div class="col-12 col-lg-6">
-      <%= form.check_box :server_configs %>
+      <%= form.check_box :server_configs, help: "Test" %>
+      <small class="form-text text-muted mt-0">Add basic server configs (kz, live, aim etc); see <a href="https://github.com/timche/csgo-server-configs#configs" target="_blank">this link</a> for more information.</small>
     </div>
 
     <div class="col-12 mt-4">
