@@ -35,7 +35,7 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Black Pearl Gaming Inc."
     assert_text "Online"
 
-    @server.update(name: "Updated Black Pearl", status: "Offline")
+    @server.update(name: "Updated Black Pearl", status: "offline")
 
     assert_text "Updated Black Pearl"
     assert_text "Offline"
@@ -47,7 +47,7 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Online"
     assert_text "Stop"
 
-    @server.update(status: "Offline")
+    @server.offline!
 
     assert_text "Offline"
     assert_text "Start"

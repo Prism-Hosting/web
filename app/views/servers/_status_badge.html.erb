@@ -1,14 +1,22 @@
 <%
 badge_class_mapping = {
-  "Starting" => "badge-soft-info",
-  "Online" => "badge-soft-success",
-  "Offline" => "badge-soft-warning",
+  "creating" => "badge-soft-info",
+  "starting" => "badge-soft-info",
+  "online" => "badge-soft-success",
+  "offline" => "badge-soft-warning",
+  "stopping" => "badge-soft-warning",
 }
 %>
 
 <%= content_tag(
   :span,
-  server.status,
-  class: "badge badge-pill #{badge_class_mapping.fetch(server.status, 'badge-soft-dark')}", 
+  class: "badge badge-pill #{badge_class_mapping.fetch(server.status, 'badge-soft-dark')}",
   id: "status_badge_#{server.id}"
-) %>
+) do %>
+  <% if ["creating", "starting", "stopping"].include?(server.status) %>
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  <% end %>
+  <%= Server.human_attribute_name("statuses.#{server.status}") %>
+<% end %>

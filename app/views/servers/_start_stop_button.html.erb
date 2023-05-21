@@ -2,13 +2,13 @@
 <% button_style ||= "btn-sm" %>
 
 
-<% if server.stopped? %>
-  <%= link_to start_server_path(server), class: "btn #{button_style} btn-success", data: { turbo_method: :post } do %>
+<% if server.offline? %>
+  <%= link_to start_server_path(server), class: "btn #{button_style} btn-success", data: { turbo_method: :post, turbo_remote: true } do %>
     <span class="btn-inner--icon"><%= fa_icon "play" %></span>
     <span class="btn-inner--text <%= additional_button_text_classes %>">Start</span>
   <% end %>
-<% elsif server.started? %>
-  <%= link_to start_server_path(server), class: "btn #{button_style} btn-warning", data: { turbo_method: :post, turbo_remote: true } do %>
+<% elsif server.starting? || server.online? %>
+  <%= link_to stop_server_path(server), class: "btn #{button_style} btn-warning", data: { turbo_method: :post, turbo_remote: true } do %>
     <span class="btn-inner--icon"><%= fa_icon "stop" %></span>
     <span class="btn-inner--text <%= additional_button_text_classes %>">Stop</span>
   <% end %>

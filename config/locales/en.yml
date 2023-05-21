@@ -45,5 +45,11 @@ en:
           cooperative: Cooperative
           skirmish: Skirmish
           free_for_all: Free For All
+        statuses:
+          one: Status
+          creating: Creating
+          starting: Starting
+          online: Online
+          offline: Offline
 
 

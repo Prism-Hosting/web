@@ -8,6 +8,7 @@ class Server < ApplicationRecord
   validates :gslt, :name, :rcon_password, presence: true
 
   enum :tickrate, "64": 64, "85": 85, "100": 100, "128": 128
+  enum :status, %i[creating starting online offline stopping]
   enum :game_type, classic: 0, gun_game: 1, training: 2, custom: 3, cooperative: 4, skirmish: 5, free_for_all: 6
   enum :game_mode, casual: 0, competitive: 1, wingman: 2, weapons_expert: 3
 
@@ -29,7 +30,7 @@ class Server < ApplicationRecord
   end
 
   def delete_kubernetes_resource
-    Rails.application.config.kubeclient.delete_prism_server(kuberenetes_name, Rails.application.config.kubenamespace)
+    Rails.application.config.kubeclient.delete_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
   end
 
   def kubernetes_name
@@ -63,14 +64,6 @@ class Server < ApplicationRecord
       { name: "CSGO_DISABLE_BOTS", value: disable_bots.to_s },
       { name: "SERVER_CONFIGS", value: server_configs.to_s },
     ]
-  end
-
-  def started?
-    ["Starting", "Online"].include?(status)
-  end
-
-  def stopped?
-    ["Offline"].include?(status)
   end
 
   def connect_command
