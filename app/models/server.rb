@@ -19,18 +19,18 @@ class Server < ApplicationRecord
   scope :ordered, -> { order(:created_at) }
 
   def create_kubernetes_resource
-    result = Rails.application.config.kubeclient.create_prism_server(to_kubernetes_resource)
+    result = Rails.application.config.prismhosting_kubeclient.create_prism_server(to_kubernetes_resource)
     update!(openshift_resource_uuid: result.metadata[:uid])
   end
 
   def update_kubernetes_resource
-    current_version = Rails.application.config.kubeclient.get_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
+    current_version = Rails.application.config.prismhosting_kubeclient.get_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
     current_version.spec.env = env_configuration
-    Rails.application.config.kubeclient.update_prism_server(current_version)
+    Rails.application.config.prismhosting_kubeclient.update_prism_server(current_version)
   end
 
   def delete_kubernetes_resource
-    Rails.application.config.kubeclient.delete_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
+    Rails.application.config.prismhosting_kubeclient.delete_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
   end
 
   def kubernetes_name
