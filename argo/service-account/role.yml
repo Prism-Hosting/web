@@ -4,6 +4,22 @@ metadata:
   name: prism-server-manager
   namespace: prism-servers
 rules:
-- apiGroups: [prism-hosting.ch]
-  resources: [prismservers]
-  verbs: ["*"]
+  - apiGroups:
+      - prism-hosting.ch
+    resources:
+      - prismservers
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/log
+    verbs:
+      - "*"
+  - apiGroups:
+      - "apps"
+    resources:
+      - deployments
+    verbs:
+      - "*"
