@@ -7,7 +7,7 @@ class ServerTest < ActiveSupport::TestCase
       assert_equal(
         {
           metadata: {
-            name: "prism-web-#{servers(:black_pearl).id}",
+            name: "prism-web-test-#{servers(:black_pearl).id}",
             namespace: Rails.application.config.kubenamespace
           },
           spec: {

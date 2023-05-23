@@ -34,7 +34,7 @@ class Server < ApplicationRecord
   end
 
   def kubernetes_name
-    "prism-web-#{id}"
+    "#{Rails.application.config.kuberenetes_resource_prefix}-#{id}"
   end
 
   def to_kubernetes_resource

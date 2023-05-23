@@ -92,4 +92,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.connect_command_host = ENV.fetch("CONNECT_COMMAND_HOST", "example.org")
+  config.kuberenetes_resource_prefix = 'prism-web-prod'
 end

@@ -63,6 +63,7 @@ Rails.application.configure do
   config.hosts << "prism-web.test"
 
   config.connect_command_host = 'prism-web.test'
+  config.kuberenetes_resource_prefix = 'prism-web-development'
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

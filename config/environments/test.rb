@@ -59,4 +59,5 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.connect_command_host = 'prism.example.org'
+  config.kuberenetes_resource_prefix = 'prism-web-test'
 end
