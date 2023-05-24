@@ -13,6 +13,8 @@ black_pearl:
   openshift_resource_uuid: 345678-345678-2345-12421412
   status: <%= Server.statuses[:online] %>
   port: 12345
+  logs: |-
+    > Starting...
 
 starship_enterprise:
   user: kirk
@@ -28,3 +30,17 @@ starship_enterprise:
   openshift_resource_uuid: 876543-345678-2345-12421412
   status: <%= Server.statuses[:offline] %>
   port: 23456
+
+fresh:
+  user: kirk
+  name: Fresh
+  gslt: 0987654321
+  map: de_inferno
+  rcon_password: starship_secured
+  tickrate: 128
+  game_type: 0
+  game_mode: 0
+  disable_bots: true
+  server_configs: true
+  status: <%= Server.statuses[:creating] %>
+  port: 34567

@@ -53,27 +53,6 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Start"
   end
 
-  # test "should update Server" do
-  #   visit server_url(@server)
-  #   click_on "Edit this server", match: :first
-
-  #   check "Disable bots" if @server.disable_bots
-  #   fill_in "Game mode", with: @server.game_mode
-  #   fill_in "Game type", with: @server.game_type
-  #   fill_in "Gslt", with: @server.gslt
-  #   fill_in "Map", with: @server.map
-  #   fill_in "Name", with: @server.name
-  #   fill_in "Openshift resource uuid", with: @server.openshift_resource_uuid
-  #   fill_in "Password", with: @server.password
-  #   fill_in "Rcon password", with: @server.rcon_password
-  #   check "Server configs" if @server.server_configs
-  #   fill_in "Tickrate", with: @server.tickrate
-  #   click_on "Update Server"
-
-  #   assert_text "Server was successfully updated"
-  #   click_on "Back"
-  # end
-
   test "should destroy Server" do
     visit advanced_server_url(@server)
     assert find('[type="submit"]').disabled?

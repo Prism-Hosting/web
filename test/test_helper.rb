@@ -15,6 +15,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   setup do
-    Rails.application.config.kubeclient.reset
+    kubeclient.reset
+  end
+
+  def kubeclient
+    Rails.application.config.kubeclient
   end
 end

@@ -24,6 +24,7 @@ class ServersController < ApplicationController
       Server.transaction do
         if @server.save
           @server.create_kubernetes_resource
+          AfterCreationSyncJob.perform_later(@server)
           format.html { redirect_to server_url(@server), notice: "Server was successfully created." }
           format.json { render :show, status: :created, location: @server }
         else

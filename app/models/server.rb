@@ -1,4 +1,6 @@
 class Server < ApplicationRecord
+  include Kubeclients
+
   belongs_to :user
   has_one_attached :picture do |attachable|
     attachable.variant :thumb, resize_to_fill: [100, 100]
@@ -15,22 +17,53 @@ class Server < ApplicationRecord
   broadcasts
   after_update_commit -> { broadcast_replace_later_to "server_right_actions_#{id}", partial: "servers/detail_right_actions", target: "right_actions_#{id}" }
   after_update_commit -> { broadcast_replace_later_to "server_status_badge_#{id}", partial: "servers/status_badge", target: "status_badge_#{id}" }
+  after_update_commit -> { broadcast_replace_later_to "server_logs_#{id}", partial: "servers/log_container", target: "logs_#{id}" }
 
   scope :ordered, -> { order(:created_at) }
 
+  def self.kubernetes_resource_to_status(prism_server, deployment)
+    return self.statuses[:creating] unless prism_server.dig(:status, :forwarding, :port) && deployment
+
+    case
+    when deployment.spec.replicas == 1 && prism_server.dig(:status, :tcpProbeResponding).present?
+      self.statuses[:online]
+    when deployment.spec.replicas == 1 && prism_server.dig(:status, :tcpProbeResponding).blank?
+      self.statuses[:starting]
+    when deployment.spec.replicas == 0 && prism_server.dig(:status, :tcpProbeResponding).present?
+      self.statuses[:stopping]
+    else
+      self.statuses[:offline]
+    end
+  end
+
+  def start!
+    deployment = apps_kubeclient.get_deployments(label_selector: label_selector, namespace: namespace).first
+    deployment.spec.replicas = 1
+    apps_kubeclient.update_deployment(deployment)
+  end
+
+  def stop!
+    deployment = apps_kubeclient.get_deployments(label_selector: label_selector, namespace: namespace).first
+    deployment.spec.replicas = 0
+    apps_kubeclient.update_deployment(deployment)
+  end
+
+  def label_selector
+    "custObjUuid=#{openshift_resource_uuid}"
+  end
+
   def create_kubernetes_resource
-    result = Rails.application.config.prismhosting_kubeclient.create_prism_server(to_kubernetes_resource)
-    update!(openshift_resource_uuid: result.metadata[:uid])
+    prismhosting_kubeclient.create_prism_server(to_kubernetes_resource)
   end
 
   def update_kubernetes_resource
-    current_version = Rails.application.config.prismhosting_kubeclient.get_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
+    current_version = prismhosting_kubeclient.get_prism_server(kubernetes_name, namespace)
     current_version.spec.env = env_configuration
-    Rails.application.config.prismhosting_kubeclient.update_prism_server(current_version)
+    prismhosting_kubeclient.update_prism_server(current_version)
   end
 
   def delete_kubernetes_resource
-    Rails.application.config.prismhosting_kubeclient.delete_prism_server(kubernetes_name, Rails.application.config.kubenamespace)
+    prismhosting_kubeclient.delete_prism_server(kubernetes_name, namespace)
   end
 
   def kubernetes_name
@@ -41,7 +74,7 @@ class Server < ApplicationRecord
     Kubeclient::Resource.new(
       metadata: {
         name: kubernetes_name,
-        namespace: Rails.application.config.kubenamespace
+        namespace: namespace
       },
       spec: {
         customer: "user-#{user.id}",

@@ -4,9 +4,11 @@ class KubeclientMock
   end
 
   def reset
-    @create_prism_server_block = Proc.new { OpenStruct.new({ metadata: { uid: "TEST-UUID" } }) }
-    # Using JSON.parse with OpenStruct will allow access of foo.bar.baz and not only the first level
-    @get_prism_server_block = Proc.new { |_name, _namespace| JSON.parse({ spec: { env: [] } }.to_json, object_class: OpenStruct) }
+    @create_prism_server_block = Proc.new {  }
+    @get_prism_server_block = Proc.new { Kubeclient::Resource.new({ metadata: { labels: { custObjUuid: "sample-uuid" } }, spec: { env: [] } }) }
+    @get_deployments_block = Proc.new { Kubeclient::Resource.new({ spec: { replicas: [] } }) }
+    @get_pods_block = Proc.new { Kubeclient::Resource.new({ metadata: { name: [] } }) }
+    @get_pod_log_block = Proc.new { "> Sample logs\n> Starting server..." }
     @update_prism_server_block = Proc.new {  }
     @delete_prism_server_block = Proc.new {  }
   end
@@ -41,5 +43,29 @@ class KubeclientMock
 
   def delete_prism_server(name, namespace)
     @delete_prism_server_block.call(name, namespace)
+  end
+
+  def on_get_deployments(&block)
+    @get_deployments_block = block
+  end
+
+  def get_deployments(*args, **kwargs)
+    @get_deployments_block.call(*args, **kwargs)
+  end
+
+  def on_get_pods(&block)
+    @get_pods_block = block
+  end
+
+  def get_pods(*args, **kwargs)
+    @get_pods_block.call(*args, **kwargs)
+  end
+
+  def on_get_pod_log(&block)
+    @get_pod_log_block = block
+  end
+
+  def get_pod_log(*args, **kwargs)
+    @get_pod_log_block.call(*args, **kwargs)
   end
 end

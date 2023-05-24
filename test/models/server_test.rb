@@ -31,13 +31,53 @@ class ServerTest < ActiveSupport::TestCase
     end
   end
 
-  test "create_kuberenetes_resource" do
-    servers(:black_pearl).create_kubernetes_resource
-    assert_equal "TEST-UUID", servers(:black_pearl).openshift_resource_uuid
-  end
-
   test "connect command" do
     assert_equal "connect prism.example.org:54321", Server.new(port: 54321).connect_command
     assert_equal "connect prism.example.org:22222; password secret", Server.new(port: 22222, password: "secret").connect_command
+  end
+
+  test "status creating" do
+    assert_equal Server.statuses[:creating], Server.kubernetes_resource_to_status(Kubeclient::Resource.new({ status: { forwarding: { port: nil } } }), nil)
+    assert_equal Server.statuses[:creating], Server.kubernetes_resource_to_status(Kubeclient::Resource.new({ status: { forwarding: { port: 1234 } } }), nil)
+  end
+
+  test "status online" do
+    assert_equal(
+      Server.statuses[:online],
+      Server.kubernetes_resource_to_status(
+        Kubeclient::Resource.new({ status: { tcpProbeResponding: true, forwarding: { port: 1234 } } }),
+        Kubeclient::Resource.new({ spec: { replicas: 1 } })
+      )
+    )
+  end
+
+  test "status starting" do
+    assert_equal(
+      Server.statuses[:starting],
+      Server.kubernetes_resource_to_status(
+        Kubeclient::Resource.new({ status: { tcpProbeResponding: false, forwarding: { port: 1234 } } }),
+        Kubeclient::Resource.new({ spec: { replicas: 1 } })
+      )
+    )
+  end
+
+  test "status stopping" do
+    assert_equal(
+      Server.statuses[:stopping],
+      Server.kubernetes_resource_to_status(
+        Kubeclient::Resource.new({ status: { tcpProbeResponding: true, forwarding: { port: 1234 } } }),
+        Kubeclient::Resource.new({ spec: { replicas: 0 } })
+      )
+    )
+  end
+
+  test "offline" do
+    assert_equal(
+      Server.statuses[:offline],
+      Server.kubernetes_resource_to_status(
+        Kubeclient::Resource.new({ status: { tcpProbeResponding: false, forwarding: { port: 1234 } } }),
+        Kubeclient::Resource.new({ spec: { replicas: 0 } })
+      )
+    )
   end
 end
