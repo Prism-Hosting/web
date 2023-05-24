@@ -35,10 +35,11 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Black Pearl Gaming Inc."
     assert_text "Online"
 
-    @server.update(name: "Updated Black Pearl", status: "offline")
+    @server.update!(name: "Updated Black Pearl", status: "offline")
+    Sidekiq::Worker.drain_all
 
-    assert_text "Updated Black Pearl"
     assert_text "Offline"
+    assert_text "Updated Black Pearl"
   end
 
   test "detail page actions and badge refreshes" do
@@ -48,6 +49,7 @@ class ServersTest < ApplicationSystemTestCase
     assert_text "Stop"
 
     @server.offline!
+    Sidekiq::Worker.drain_all
 
     assert_text "Offline"
     assert_text "Start"

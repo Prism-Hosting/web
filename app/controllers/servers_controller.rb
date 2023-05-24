@@ -1,5 +1,5 @@
 class ServersController < ApplicationController
-  before_action :set_server, only: %i[ show update destroy logs advanced ]
+  before_action :set_server, only: %i[ show update destroy logs advanced start stop ]
 
   # GET /servers or /servers.json
   def index
@@ -67,11 +67,15 @@ class ServersController < ApplicationController
   end
 
   def start
-    head :ok
+    @server.start!
+    AfterCreationSyncJob.perform_later(@server)
+    head :no_content
   end
 
   def stop
-    head :ok
+    @server.stop!
+    AfterStoppingSyncJob.perform_later(@server)
+    head :no_content
   end
 
   private

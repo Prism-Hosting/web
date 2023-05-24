@@ -6,10 +6,11 @@ class KubeclientMock
   def reset
     @create_prism_server_block = Proc.new {  }
     @get_prism_server_block = Proc.new { Kubeclient::Resource.new({ metadata: { labels: { custObjUuid: "sample-uuid" } }, spec: { env: [] } }) }
-    @get_deployments_block = Proc.new { Kubeclient::Resource.new({ spec: { replicas: [] } }) }
-    @get_pods_block = Proc.new { Kubeclient::Resource.new({ metadata: { name: [] } }) }
+    @get_deployments_block = Proc.new { [Kubeclient::Resource.new({ spec: { replicas: 0 } })] }
+    @get_pods_block = Proc.new { [Kubeclient::Resource.new({ metadata: { name: "test" } })] }
     @get_pod_log_block = Proc.new { "> Sample logs\n> Starting server..." }
     @update_prism_server_block = Proc.new {  }
+    @update_deployment_block = Proc.new {  }
     @delete_prism_server_block = Proc.new {  }
   end
 
@@ -51,6 +52,14 @@ class KubeclientMock
 
   def get_deployments(*args, **kwargs)
     @get_deployments_block.call(*args, **kwargs)
+  end
+
+  def on_update_deployment(&block)
+    @update_deployment_block = block
+  end
+
+  def update_deployment(resource)
+    @update_deployment_block.call(resource)
   end
 
   def on_get_pods(&block)

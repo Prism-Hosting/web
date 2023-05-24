@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ServersControllerTest < ActionDispatch::IntegrationTest
+  include ActiveJob::TestHelper
+
   setup do
     sign_in users(:jack)
     @server = servers(:black_pearl)
@@ -58,6 +60,18 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:kirk)
     assert_raises ActiveRecord::RecordNotFound do
       get server_url(@server)
+    end
+  end
+
+  test "start server" do
+    assert_enqueued_with(job: AfterCreationSyncJob) do
+      post start_server_url(@server)
+    end
+  end
+
+  test "stop server" do
+    assert_enqueued_with(job: AfterStoppingSyncJob) do
+      post stop_server_url(@server)
     end
   end
 end
