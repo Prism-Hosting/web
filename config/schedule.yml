@@ -1,0 +1,4 @@
+sync_server:
+  cron: "*/5 * * * * *"
+  class: "SyncAllServersJob"
+  queue: default

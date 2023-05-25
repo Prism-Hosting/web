@@ -32,6 +32,7 @@ gem "redis", "~> 4.0"
 
 # Use sidekiq for background job processing
 gem "sidekiq", "~> 6"
+gem "sidekiq-cron"
 
 # Use Devise for authentication
 gem "devise"
