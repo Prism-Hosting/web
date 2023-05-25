@@ -10,7 +10,9 @@
         </div>
         <div class="text-right">
           <div class="actions">
-            <a href="#" class="action-item"><i class="fas fa-sync"></i></a>
+            <%= link_to refresh_server_path(server), class: "action-item", data: { controller: "startstop", action: "click->startstop#click" } do  %>
+              <%= fa_icon "sync" %>
+            <% end %>
           </div>
         </div>
       </div>

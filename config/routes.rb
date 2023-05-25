@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :servers, except: :edit do
     post :start, on: :member
     post :stop, on: :member
+    post :refresh, on: :member
     get :logs, on: :member
     get :advanced, on: :member
   end

@@ -74,4 +74,10 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
       post stop_server_url(@server)
     end
   end
+
+  test "refresh server" do
+    assert_enqueued_with(job: SyncKubernetesResourceJob) do
+      post refresh_server_url(@server)
+    end
+  end
 end

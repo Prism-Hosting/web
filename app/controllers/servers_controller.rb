@@ -1,5 +1,5 @@
 class ServersController < ApplicationController
-  before_action :set_server, only: %i[ show update destroy logs advanced start stop ]
+  before_action :set_server, only: %i[ show update destroy logs advanced start stop refresh ]
 
   # GET /servers or /servers.json
   def index
@@ -75,6 +75,11 @@ class ServersController < ApplicationController
   def stop
     @server.stop!
     AfterStoppingSyncJob.perform_later(@server)
+    head :no_content
+  end
+
+  def refresh
+    SyncKubernetesResourceJob.perform_later(@server, force_update: true)
     head :no_content
   end
 
