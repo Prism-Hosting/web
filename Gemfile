@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "~> 3.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.3"
+gem "rails", "~> 7.0.5", ">= 7.0.5.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -16,7 +16,7 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 
 # Use importmaps for javascript [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+gem "importmap-rails", ">= 1.2.0"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -43,7 +43,7 @@ gem "omniauth-rails_csrf_protection"
 gem "rexml"
 
 # Use bootstrap_form for generating forms with bootstrap classes
-gem "bootstrap_form", "~> 4"
+gem "bootstrap_form", "~> 5", ">= 5.0.0"
 
 # Use image_processing for img variants
 gem "image_processing"
